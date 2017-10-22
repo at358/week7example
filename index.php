@@ -1,18 +1,41 @@
+<html>
+    <head>
+        <title>PDO Demo</title>
+    </head>
+    <body>
+        <table = border="1">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+            </tr>
+        </thead>
+        <tbody>
+        <table>
+		<?php
+			$username = 'at358';
+			$password = 'Krishna15';
+			$hostname = 'sql1.njit.edu';
+			$dsn = "mysql:host=$hostname;dbname=$username";
+
+		mysql_connect($dsn, $username, $password) or die("Could not connect: " . mysql_error()); 
+		
+		$result = mysql_query("SELECT id, email FROM accounts LIMIT 5");
+
+		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    	?>
+			<tr>
+    			<td><?=$row['id']; ?></td>
+    			<td><?=$row['name']; ?></td>
+			</tr>    
 <?php
-
-echo "<h1>PDO demo!</h1>";
-$username = '<ucid here>';
-$password = '<password here>';
-$hostname = 'sql.njit.edu';
-
-$dsn = "mysql:host=$hostname;dbname=$username";
-
-try {
-    $conn = new PDO($dsn, $username, $password);
-    echo "Connected successfully<br>";
-} catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
 }
-$conn = null;
 
+mysql_free_result($result);
 ?>
+		</table>
+    
+        
+        ?>
+    </body>
+</html>
